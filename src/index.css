@@ -1,0 +1,208 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
+  body {
+    background-color: #f7f9fc;
+    color: #1a1a2e;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgba(14, 165, 233, 0.18);
+    color: #1a1a2e;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #eef2f7;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(14, 165, 233, 0.35);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(14, 165, 233, 0.6);
+  }
+}
+
+@layer components {
+  /* ── Gradient text: teal → violet → pink, flowing left-to-right ── */
+  .gradient-text {
+    background: linear-gradient(
+      135deg,
+      #0ea5e9 0%,
+      #8b5cf6 35%,
+      #ec4899 65%,
+      #0ea5e9 100%
+    );
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: nameGradientFlow 6s linear infinite;
+  }
+
+  /* ── Light glass base ── */
+  .glass {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+  }
+
+  /* ── Light glass card ── */
+  .glass-card {
+    background: #ffffff;
+    border: 1px solid #e8edf5;
+    box-shadow: 0 2px 16px rgba(15, 23, 42, 0.06), 0 1px 4px rgba(15, 23, 42, 0.04);
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .glass-card:hover {
+    background: #ffffff;
+    box-shadow: 0 10px 36px rgba(15, 23, 42, 0.1), 0 2px 8px rgba(15, 23, 42, 0.06);
+    border-color: #d1dae8;
+    transform: translateY(-3px);
+  }
+
+  /* ── Section heading ── */
+  .section-heading {
+    @apply text-4xl md:text-5xl font-bold mb-4;
+  }
+
+  /* ── Primary button: teal→violet on default, shifts to violet→pink on hover ── */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-7 py-3 rounded-full font-semibold text-sm tracking-wide;
+    background: linear-gradient(
+      to right,
+      #8b5cf6 0%,
+      #ec4899 50%,
+      #0ea5e9 50%,
+      #8b5cf6 100%
+    );
+    background-size: 210% 100%;
+    background-position: right center;
+    color: #fff;
+    box-shadow: 0 2px 14px rgba(14, 165, 233, 0.28);
+    transition: background-position 0.4s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background-position: left center;
+    box-shadow: 0 6px 24px rgba(139, 92, 246, 0.35);
+    transform: translateY(-2px);
+  }
+
+  /* ── Secondary button: glass base → gradient sweep on hover ── */
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-7 py-3 rounded-full font-semibold text-sm tracking-wide;
+    background: linear-gradient(
+      to right,
+      #0ea5e9 0%,
+      #8b5cf6 50%,
+      rgba(255, 255, 255, 0.92) 50%,
+      rgba(255, 255, 255, 0.92) 100%
+    );
+    background-size: 210% 100%;
+    background-position: right center;
+    color: #0ea5e9;
+    border: 1.5px solid rgba(14, 165, 233, 0.32);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+    transition: background-position 0.4s ease, color 0.35s ease,
+      border-color 0.35s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .btn-secondary:hover {
+    background-position: left center;
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 6px 24px rgba(14, 165, 233, 0.28);
+    transform: translateY(-2px);
+  }
+}
+
+/* ── Keyframes ── */
+@keyframes nameGradientFlow {
+  0%   { background-position: 0%   center; }
+  100% { background-position: 300% center; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px)   rotate(0deg); }
+  33%       { transform: translateY(-12px) rotate(1deg); }
+  66%       { transform: translateY(-6px)  rotate(-1deg); }
+}
+
+@keyframes softPulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%       { opacity: 0.65; transform: scale(1.05); }
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0%   50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0%   50%; }
+}
+
+/* ── Utility animation classes ── */
+.animate-float      { animation: float 6s ease-in-out infinite; }
+.animate-soft-pulse { animation: softPulse 3.5s ease-in-out infinite; }
+
+/* ── 3D transform helpers ── */
+.preserve-3d      { transform-style: preserve-3d; }
+.perspective-1000 { perspective: 1000px; }
+
+/* ── Scroll progress bar ── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #0ea5e9, #8b5cf6, #ec4899);
+  z-index: 9999;
+  transform-origin: left;
+  border-radius: 0 3px 3px 0;
+}
+
+/* ── Link underline micro-interaction ── */
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, #0ea5e9, #8b5cf6);
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
