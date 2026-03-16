@@ -195,23 +195,21 @@ function ProjectCard({ project, index, onVideoClick }) {
               </motion.a>
 
               {/* Video icon */}
-              {(project.video || project.title === 'Weather App' || project.title === 'E-commerce Desktop App') && (
-                <motion.button
-                  onClick={() => onVideoClick(project.video || 'placeholder')}
-                  whileHover={{ scale: 1.12 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-200"
-                  style={{
-                    background: hovered ? `${project.color}12` : '#f1f5f9',
-                    border: hovered ? `1px solid ${project.color}28` : '1px solid #e2e8f0',
-                    color: hovered ? project.color : '#94a3b8',
-                  }}
-                >
-                  <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z"/>
-                  </svg>
-                </motion.button>
-              )}
+              <motion.button
+                onClick={() => onVideoClick(project.video || 'placeholder')}
+                whileHover={{ scale: 1.12 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-200"
+                style={{
+                  background: hovered ? `${project.color}12` : '#f1f5f9',
+                  border: hovered ? `1px solid ${project.color}28` : '1px solid #e2e8f0',
+                  color: hovered ? project.color : '#94a3b8',
+                }}
+              >
+                <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </motion.button>
             </div>
           </div>
 
