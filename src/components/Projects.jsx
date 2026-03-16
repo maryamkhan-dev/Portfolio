@@ -20,7 +20,7 @@ const projects = [
     tags: ['JavaScript', 'HTML5', 'CSS3', 'Weather API'],
     color: '#8b5cf6',
     icon: '⛅',
-    github: 'https://github.com/maryamkhan-dev',
+    github: 'https://github.com/maryamkhan-dev/Weather_App',
     featured: false,
     video: null,
   },
@@ -39,10 +39,10 @@ const projects = [
     title: 'E-commerce Desktop App',
     description:
       'Full-featured desktop e-commerce application with product catalog, shopping cart, order management, and MS SQL database integration.',
-    tags: ['Java', 'MS SQL', 'OOP', 'Desktop'],
+    tags: ['C#', 'MS SQL', '.NET Windows Forms', 'Desktop'],
     color: '#f97316',
     icon: '🛒',
-    github: 'https://github.com/maryamkhan-dev',
+    github: 'https://github.com/maryamkhan-dev/E-commerce',
     featured: false,
     video: null,
   },
@@ -109,7 +109,7 @@ function VideoPreview({ src, color, visible }) {
 }
 
 /* ── ProjectCard — professional hover, no 3D tilt ── */
-function ProjectCard({ project, index }) {
+function ProjectCard({ project, index, onVideoClick }) {
   const ref    = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
   const [hovered, setHovered] = useState(false);
@@ -173,24 +173,46 @@ function ProjectCard({ project, index }) {
               </div>
             </div>
 
-            {/* GitHub link */}
-            <motion.a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.12 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-200"
-              style={{
-                background: hovered ? `${project.color}12` : '#f1f5f9',
-                border: hovered ? `1px solid ${project.color}28` : '1px solid #e2e8f0',
-                color: hovered ? project.color : '#94a3b8',
-              }}
-            >
-              <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-              </svg>
-            </motion.a>
+            {/* Icons row */}
+            <div className="flex gap-2">
+              {/* GitHub link */}
+              <motion.a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.12 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-200"
+                style={{
+                  background: hovered ? `${project.color}12` : '#f1f5f9',
+                  border: hovered ? `1px solid ${project.color}28` : '1px solid #e2e8f0',
+                  color: hovered ? project.color : '#94a3b8',
+                }}
+              >
+                <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                </svg>
+              </motion.a>
+
+              {/* Video icon */}
+              {(project.video || project.title === 'Weather App' || project.title === 'E-commerce Desktop App') && (
+                <motion.button
+                  onClick={() => onVideoClick(project.video || 'placeholder')}
+                  whileHover={{ scale: 1.12 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-200"
+                  style={{
+                    background: hovered ? `${project.color}12` : '#f1f5f9',
+                    border: hovered ? `1px solid ${project.color}28` : '1px solid #e2e8f0',
+                    color: hovered ? project.color : '#94a3b8',
+                  }}
+                >
+                  <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </motion.button>
+              )}
+            </div>
           </div>
 
           {/* Description */}
@@ -224,6 +246,15 @@ function ProjectCard({ project, index }) {
 export default function Projects() {
   const ref    = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
+  const [modalVideo, setModalVideo] = useState(null);
+
+  const openModal = (videoSrc) => {
+    setModalVideo(videoSrc);
+  };
+
+  const closeModal = () => {
+    setModalVideo(null);
+  };
 
   return (
     <section id="projects" className="relative py-32 overflow-hidden scroll-mt-20">
@@ -264,9 +295,48 @@ export default function Projects() {
         {/* 3 × 2 project grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
           {projects.map((project, i) => (
-            <ProjectCard key={project.title} project={project} index={i} />
+            <ProjectCard key={project.title} project={project} index={i} onVideoClick={openModal} />
           ))}
         </div>
+
+        {/* Video Modal */}
+        {modalVideo && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
+            onClick={closeModal}
+          >
+            <motion.div
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.8 }}
+              className="relative bg-white rounded-lg overflow-hidden max-w-4xl w-full mx-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={closeModal}
+                className="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition z-10"
+              >
+                ✕
+              </button>
+              {modalVideo === 'placeholder' ? (
+                <div className="p-8 text-center">
+                  <h3 className="text-xl font-bold mb-4">Demo Video Coming Soon</h3>
+                  <p className="text-gray-600">We're working on adding a demo video for this project. Check back later!</p>
+                </div>
+              ) : (
+                <video
+                  src={modalVideo}
+                  controls
+                  autoPlay
+                  className="w-full h-auto"
+                />
+              )}
+            </motion.div>
+          </motion.div>
+        )}
 
         {/* GitHub CTA */}
         <motion.div
